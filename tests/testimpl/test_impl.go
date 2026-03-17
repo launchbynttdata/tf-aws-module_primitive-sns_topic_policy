@@ -38,7 +38,7 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 		owner := terraform.Output(t, opts, "owner")
 
 		assert.Equal(t, arn, id, "id should equal arn for aws_sns_topic_policy")
-		require.NotEmpty(t, owner, "owner must be set")
+		assert.Regexp(t, `^\d{12}$`, owner, "owner must be a 12-digit AWS account ID")
 	})
 
 	t.Run("VerifyPolicyViaSNSAPI", func(t *testing.T) {
@@ -83,7 +83,7 @@ func TestComposableCompleteReadonly(t *testing.T, ctx types.TestContext) {
 		owner := terraform.Output(t, opts, "owner")
 
 		assert.Equal(t, arn, id, "id should equal arn for aws_sns_topic_policy")
-		require.NotEmpty(t, owner, "owner must be set")
+		assert.Regexp(t, `^\d{12}$`, owner, "owner must be a 12-digit AWS account ID")
 	})
 
 	t.Run("VerifyPolicyViaSNSAPI", func(t *testing.T) {

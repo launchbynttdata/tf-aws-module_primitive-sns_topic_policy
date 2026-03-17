@@ -108,6 +108,7 @@ module "sns_topic_policy" {
 
 | Name | Type |
 |------|------|
+| [aws_kms_key.topic](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_sns_topic.topic](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.sns_topic_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -124,6 +125,8 @@ module "sns_topic_policy" {
 | <a name="input_instance_resource"></a> [instance\_resource](#input\_instance\_resource) | Instance resource number for resource naming. | `number` | n/a | yes |
 | <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | Map of resource types to naming configuration for the resource\_name module. | <pre>map(object({<br/>    name       = string<br/>    max_length = optional(number, 60)<br/>  }))</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to assign to the SNS topic. | `map(string)` | `{}` | no |
+| <a name="input_arn"></a> [arn](#input\_arn) | The ARN of the SNS topic to attach the policy to. Defaults to the example topic ARN. | `string` | `null` | no |
+| <a name="input_policy"></a> [policy](#input\_policy) | The fully-formed AWS policy as JSON. Defaults to the example least-privilege policy document. | `string` | `null` | no |
 
 ## Outputs
 

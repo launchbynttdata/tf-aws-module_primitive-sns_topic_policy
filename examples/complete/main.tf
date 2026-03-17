@@ -31,8 +31,15 @@ module "resource_names" {
 }
 
 resource "aws_sns_topic" "topic" {
-  name = module.resource_names["sns_topic"].standard
-  tags = var.tags
+  name              = module.resource_names["sns_topic"].standard
+  kms_master_key_id = aws_kms_key.topic.arn
+  tags              = var.tags
+}
+
+resource "aws_kms_key" "topic" {
+  description             = "KMS key for SNS topic encryption"
+  deletion_window_in_days = 7
+  enable_key_rotation     = true
 }
 
 data "aws_iam_policy_document" "sns_topic_policy" {
@@ -46,14 +53,8 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     }
 
     actions = [
-      "sns:GetTopicAttributes",
-      "sns:SetTopicAttributes",
-      "sns:AddPermission",
-      "sns:RemovePermission",
-      "sns:DeleteTopic",
-      "sns:Subscribe",
-      "sns:ListSubscriptionsByTopic",
-      "sns:Publish"
+      "sns:Publish",
+      "sns:Subscribe"
     ]
 
     resources = [aws_sns_topic.topic.arn]
@@ -63,6 +64,6 @@ data "aws_iam_policy_document" "sns_topic_policy" {
 module "sns_topic_policy" {
   source = "../.."
 
-  arn    = aws_sns_topic.topic.arn
-  policy = data.aws_iam_policy_document.sns_topic_policy.json
+  arn    = coalesce(var.arn, aws_sns_topic.topic.arn)
+  policy = coalesce(var.policy, data.aws_iam_policy_document.sns_topic_policy.json)
 }

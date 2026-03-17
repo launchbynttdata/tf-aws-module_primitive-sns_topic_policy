@@ -48,3 +48,15 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "arn" {
+  description = "The ARN of the SNS topic to attach the policy to. Defaults to the example topic ARN."
+  type        = string
+  default     = null
+}
+
+variable "policy" {
+  description = "The fully-formed AWS policy as JSON. Defaults to the example least-privilege policy document."
+  type        = string
+  default     = null
+}
