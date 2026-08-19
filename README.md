@@ -44,12 +44,6 @@ pre-commit install --hook-type commit-msg
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.5 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.14 |
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
-
 ## Modules
 
 No modules.
@@ -71,7 +65,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | The ID of the resource (same as the topic ARN). |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the SNS topic. |
+| <a name="output_id"></a> [id](#output\_id) | The ID of the resource (same as the topic ARN). |
 | <a name="output_owner"></a> [owner](#output\_owner) | The AWS Account ID of the SNS topic owner. |
 <!-- END_TF_DOCS -->

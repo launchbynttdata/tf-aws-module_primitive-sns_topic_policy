@@ -91,12 +91,6 @@ module "sns_topic_policy" {
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.5 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.14 |
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
-
 ## Modules
 
 | Name | Source | Version |
@@ -118,21 +112,21 @@ module "sns_topic_policy" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family) | Logical product family for resource naming. | `string` | n/a | yes |
-| <a name="input_logical_product_service"></a> [logical\_product\_service](#input\_logical\_product\_service) | Logical product service for resource naming. | `string` | n/a | yes |
+| <a name="input_arn"></a> [arn](#input\_arn) | The ARN of the SNS topic to attach the policy to. Defaults to the example topic ARN. | `string` | `null` | no |
 | <a name="input_class_env"></a> [class\_env](#input\_class\_env) | Class environment for resource naming (e.g., dev, prod). | `string` | n/a | yes |
 | <a name="input_instance_env"></a> [instance\_env](#input\_instance\_env) | Instance environment number for resource naming. | `number` | n/a | yes |
 | <a name="input_instance_resource"></a> [instance\_resource](#input\_instance\_resource) | Instance resource number for resource naming. | `number` | n/a | yes |
+| <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family) | Logical product family for resource naming. | `string` | n/a | yes |
+| <a name="input_logical_product_service"></a> [logical\_product\_service](#input\_logical\_product\_service) | Logical product service for resource naming. | `string` | n/a | yes |
+| <a name="input_policy"></a> [policy](#input\_policy) | The fully-formed AWS policy as JSON. Defaults to the example least-privilege policy document. | `string` | `null` | no |
 | <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | Map of resource types to naming configuration for the resource\_name module. | <pre>map(object({<br/>    name       = string<br/>    max_length = optional(number, 60)<br/>  }))</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to assign to the SNS topic. | `map(string)` | `{}` | no |
-| <a name="input_arn"></a> [arn](#input\_arn) | The ARN of the SNS topic to attach the policy to. Defaults to the example topic ARN. | `string` | `null` | no |
-| <a name="input_policy"></a> [policy](#input\_policy) | The fully-formed AWS policy as JSON. Defaults to the example least-privilege policy document. | `string` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | The ID of the SNS topic policy (same as the topic ARN). |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the SNS topic. |
+| <a name="output_id"></a> [id](#output\_id) | The ID of the SNS topic policy (same as the topic ARN). |
 | <a name="output_owner"></a> [owner](#output\_owner) | The AWS Account ID of the SNS topic owner. |
 <!-- END_TF_DOCS -->
