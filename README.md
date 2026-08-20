@@ -21,21 +21,6 @@ module "sns_topic_policy" {
 
 The policy is typically constructed using the [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) data source.
 
-## Pre-Commit Hooks
-
-The `.pre-commit-config.yaml` file defines hooks for Terraform, Go, and common linting. The `commitlint` hook enforces conventional commit format. The `detect-secrets-hook` prevents new secrets from being introduced into the baseline. See the [pre-commit documentation](https://pre-commit.com/) for installation. Install the commit-msg hook manually:
-
-```shell
-pre-commit install --hook-type commit-msg
-```
-
-## Testing Locally
-
-1. Run `make configure` to install dependencies.
-2. For AWS: ensure AWS credentials are configured (e.g., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, or `AWS_PROFILE`). Run `make env` if your Makefile provides AWS environment setup.
-3. Create `examples/complete/provider.tf` with your AWS provider configuration if not delivered by the Makefile.
-4. Run `make check` to run lint, validate, plan, and tests.
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
