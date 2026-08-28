@@ -33,9 +33,9 @@ func getSNSClient(t *testing.T, region string) *sns.Client {
 func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 	t.Run("VerifyTerraformOutputs", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		id := terraform.Output(t, opts, "id")
-		arn := terraform.Output(t, opts, "arn")
-		owner := terraform.Output(t, opts, "owner")
+		id := terraform.OutputContext(t, context.Background(), opts, "id")
+		arn := terraform.OutputContext(t, context.Background(), opts, "arn")
+		owner := terraform.OutputContext(t, context.Background(), opts, "owner")
 
 		assert.Equal(t, arn, id, "id should equal arn for aws_sns_topic_policy")
 		assert.Regexp(t, `^\d{12}$`, owner, "owner must be a 12-digit AWS account ID")
@@ -43,8 +43,8 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 
 	t.Run("VerifyPolicyViaSNSAPI", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		topicArn := strings.TrimSpace(terraform.Output(t, opts, "arn"))
-		expectedOwner := terraform.Output(t, opts, "owner")
+		topicArn := strings.TrimSpace(terraform.OutputContext(t, context.Background(), opts, "arn"))
+		expectedOwner := terraform.OutputContext(t, context.Background(), opts, "owner")
 
 		client := getSNSClient(t, parseRegionFromTopicARN(topicArn))
 		result, err := client.GetTopicAttributes(context.Background(), &sns.GetTopicAttributesInput{
@@ -63,7 +63,7 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 
 	t.Run("VerifyPublishSucceeds", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		topicArn := strings.TrimSpace(terraform.Output(t, opts, "arn"))
+		topicArn := strings.TrimSpace(terraform.OutputContext(t, context.Background(), opts, "arn"))
 
 		client := getSNSClient(t, parseRegionFromTopicARN(topicArn))
 		msg := "Terratest functional verification message"
@@ -78,9 +78,9 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 func TestComposableCompleteReadonly(t *testing.T, ctx types.TestContext) {
 	t.Run("VerifyTerraformOutputs", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		id := terraform.Output(t, opts, "id")
-		arn := terraform.Output(t, opts, "arn")
-		owner := terraform.Output(t, opts, "owner")
+		id := terraform.OutputContext(t, context.Background(), opts, "id")
+		arn := terraform.OutputContext(t, context.Background(), opts, "arn")
+		owner := terraform.OutputContext(t, context.Background(), opts, "owner")
 
 		assert.Equal(t, arn, id, "id should equal arn for aws_sns_topic_policy")
 		assert.Regexp(t, `^\d{12}$`, owner, "owner must be a 12-digit AWS account ID")
@@ -88,8 +88,8 @@ func TestComposableCompleteReadonly(t *testing.T, ctx types.TestContext) {
 
 	t.Run("VerifyPolicyViaSNSAPI", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		topicArn := strings.TrimSpace(terraform.Output(t, opts, "arn"))
-		expectedOwner := terraform.Output(t, opts, "owner")
+		topicArn := strings.TrimSpace(terraform.OutputContext(t, context.Background(), opts, "arn"))
+		expectedOwner := terraform.OutputContext(t, context.Background(), opts, "owner")
 
 		client := getSNSClient(t, parseRegionFromTopicARN(topicArn))
 		result, err := client.GetTopicAttributes(context.Background(), &sns.GetTopicAttributesInput{
